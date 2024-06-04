@@ -11,19 +11,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.example.myweb.member.service.MemberService;
+
 @Controller
 public class MemberController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	
 	@Autowired
 	private MemberDao memberDao;
+	
+	@Autowired
+	private MemberService memberService;
 
 	@RequestMapping(value = "/member/list.do", method = RequestMethod.GET)
 	public String memberList(Locale locale, Model model) {
 		logger.info("GET memberList() - MemberController", locale);
 		
-		List<MemberDto> memberList = memberDao.selectAll();
-		model.addAttribute("memberList", memberList );
+		memberService.process(model);
 		
 		return "member/list";
 	}
@@ -36,45 +40,47 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/member/input.do", method = RequestMethod.POST)
-	public String memberInputOk(Locale locale, Model model) {
+	public String memberInputOk(MemberDto dto, Locale locale, Model model) {
 		logger.info("POST memberInput() - MemberController", locale);
-		
+		memberDao.insert(dto);
 		return "redirect:list.do";
 	}
 	
 	@RequestMapping(value = "/member/detail.do", method = RequestMethod.GET)
-	public String memberDetail(Locale locale, Model model) {
+	public String memberDetail(MemberDto dto, Locale locale, Model model) {
 		logger.info("GET memberDetail() - MemberController", locale);
-		
+		MemberDto member = memberDao.findById(dto);
+		model.addAttribute("member", member);
 		return "member/detail";
 	}
 	
 	@RequestMapping(value = "/member/edit.do", method = RequestMethod.GET)
-	public String memberEdit(Locale locale, Model model) {
+	public String memberEdit(MemberDto dto, Locale locale, Model model) {
 		logger.info("GET memberEdit() - MemberController", locale);
-		
+		MemberDto member = memberDao.findById(dto);
+		model.addAttribute("member", member);
 		return "member/edit";
 	}
 	
 	@RequestMapping(value = "/member/edit.do", method = RequestMethod.POST)
-	public String memberEditOk(Locale locale, Model model) {
+	public String memberEditOk(MemberDto dto, Locale locale, Model model) {
 		logger.info("POST memberEditOk() - MemberController", locale);
-		
+		memberDao.update(dto);
 		return "redirect:list.do";
 	}
 	
 	@RequestMapping(value = "/member/delete.do", method = RequestMethod.GET)
-	public String memberDelete(Locale locale, Model model) {
+	public String memberDelete(MemberDto dto, Locale locale, Model model) {
 		logger.info("GET memberDelete() - MemberController", locale);
-		
+		MemberDto member = memberDao.findById(dto);
+		model.addAttribute("member", member);
 		return "member/delete";
 	}
 	
 	@RequestMapping(value = "/member/delete.do", method = RequestMethod.POST)
-	public String memberDeleteOk(Locale locale, Model model) {
+	public String memberDeleteOk(MemberDto dto, Locale locale, Model model) {
 		logger.info("POST memberDeleteOk() - MemberController", locale);
-		
+		memberDao.delete(dto);
 		return "redirect:list.do";
 	}
-	
 }
