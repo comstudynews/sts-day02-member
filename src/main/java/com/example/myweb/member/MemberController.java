@@ -1,7 +1,5 @@
 package com.example.myweb.member;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -12,8 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import com.example.myweb.HomeController;
 
 @Controller
 public class MemberController {
@@ -30,6 +26,55 @@ public class MemberController {
 		model.addAttribute("memberList", memberList );
 		
 		return "member/list";
+	}
+	
+	@RequestMapping(value = "/member/input.do", method = RequestMethod.GET)
+	public String memberInput(Locale locale, Model model) {
+		logger.info("GET memberInput() - MemberController", locale);
+		
+		return "member/input";
+	}
+	
+	@RequestMapping(value = "/member/input.do", method = RequestMethod.POST)
+	public String memberInputOk(Locale locale, Model model) {
+		logger.info("POST memberInput() - MemberController", locale);
+		
+		return "redirect:list.do";
+	}
+	
+	@RequestMapping(value = "/member/detail.do", method = RequestMethod.GET)
+	public String memberDetail(Locale locale, Model model) {
+		logger.info("GET memberDetail() - MemberController", locale);
+		
+		return "member/detail";
+	}
+	
+	@RequestMapping(value = "/member/edit.do", method = RequestMethod.GET)
+	public String memberEdit(Locale locale, Model model) {
+		logger.info("GET memberEdit() - MemberController", locale);
+		
+		return "member/edit";
+	}
+	
+	@RequestMapping(value = "/member/edit.do", method = RequestMethod.POST)
+	public String memberEditOk(Locale locale, Model model) {
+		logger.info("POST memberEditOk() - MemberController", locale);
+		
+		return "redirect:list.do";
+	}
+	
+	@RequestMapping(value = "/member/delete.do", method = RequestMethod.GET)
+	public String memberDelete(Locale locale, Model model) {
+		logger.info("GET memberDelete() - MemberController", locale);
+		
+		return "member/delete";
+	}
+	
+	@RequestMapping(value = "/member/delete.do", method = RequestMethod.POST)
+	public String memberDeleteOk(Locale locale, Model model) {
+		logger.info("POST memberDeleteOk() - MemberController", locale);
+		
+		return "redirect:list.do";
 	}
 	
 }

@@ -13,8 +13,11 @@
 	<hr/>
 	
 	<ul>
-		<li><a href="member/list.do">회원목록</a></li>
-		<li><a href="member/input.do">회원정보입력</a></li>
+		<li><a href="member/list.do">회원 목록</a></li>
+		<li><a href="member/input.do">회원정보 입력</a></li>
+		<li><a href="member/detail.do">회원정보 상세보기</a></li>
+		<li><a href="member/edit.do">회원정보 수정</a></li>
+		<li><a href="member/delete.do">회원정보 삭제</a></li>
 	</ul>
 </body>
 </html>

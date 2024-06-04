@@ -2,16 +2,17 @@ package com.example.myweb.member;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
+public interface MemberDao {
 
-@Repository
-public class MemberDao {
-	
-	public List<MemberDto> selectAll() {
-		System.out.println("selectAll() 실행");
-		
-		
-		return null;
-	}
+	List<MemberDto> selectAll();
+
+	// 상세보기, 저장, 수정, 삭제 기능 구현.
+	MemberDto findById(MemberDto dto);
+
+	void insert(MemberDto dto);
+
+	void update(MemberDto dto);
+
+	void delete(MemberDto dto);
 
 }
